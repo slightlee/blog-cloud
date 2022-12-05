@@ -20,6 +20,10 @@ spring:
       minimum-idle: 10
       read-only: false
 
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
 
 mybatis-plus:
   configuration:

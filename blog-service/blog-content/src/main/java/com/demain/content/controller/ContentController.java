@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -39,6 +40,8 @@ public class ContentController {
 
 	private final ContentService contentService;
 
+	private final DiscoveryClient discoveryClient;
+
 	/**
 	 * 根据内容ID获取内容信息
 	 */
@@ -52,7 +55,9 @@ public class ContentController {
 		// 用户信息
 		RestTemplate restTemplate = new RestTemplate();
 
-		List<String> urlList = Arrays.asList("http://127.0.0.1:8001", "http://127.0.0.1:8003");
+
+		List<ServiceInstance> instanceList = discoveryClient.getInstances("blog-user");
+		List<String> urlList = instanceList.stream().map(serviceInstance -> serviceInstance.getUri().toString()).toList();
 		int i = ThreadLocalRandom.current().nextInt(urlList.size());
 		String url = urlList.get(i);
 		log.info("请求url为:{}",url);

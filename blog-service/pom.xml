@@ -48,6 +48,12 @@
             <version>${blog-common.version}</version>
         </dependency>
 
+        <!-- nacos注册发现 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
