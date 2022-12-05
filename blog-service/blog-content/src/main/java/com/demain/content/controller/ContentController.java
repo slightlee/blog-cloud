@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * <p>
@@ -54,14 +51,7 @@ public class ContentController {
 		Content content = contentService.getById(id);
 		// 用户信息
 		RestTemplate restTemplate = new RestTemplate();
-
-
-		List<ServiceInstance> instanceList = discoveryClient.getInstances("blog-user");
-		List<String> urlList = instanceList.stream().map(serviceInstance -> serviceInstance.getUri().toString()).toList();
-		int i = ThreadLocalRandom.current().nextInt(urlList.size());
-		String url = urlList.get(i);
-		log.info("请求url为:{}",url);
-		ResponseEntity<User> responseEntity = restTemplate.getForEntity(url + "/user/getUserInfo/{id}", User.class, id);
+		ResponseEntity<User> responseEntity = restTemplate.getForEntity("http://blog-user/user/getUserInfo/{id}", User.class, id);
 		User user = responseEntity.getBody();
 		assert user != null;
 		ContentInfoV contentInfoV = ContentInfoV.builder().content(content).nickName(user.getNickName()).build();
