@@ -18,6 +18,17 @@
     </properties>
 
 
+    <dependencies>
+
+        <dependency>
+            <groupId>com.demain</groupId>
+            <artifactId>blog-user-api</artifactId>
+            <version>${blog-project.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
     <build>
 
         <finalName>blog-user</finalName>
