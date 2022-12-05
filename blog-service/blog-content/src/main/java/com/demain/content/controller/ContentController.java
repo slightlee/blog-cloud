@@ -1,8 +1,10 @@
 package com.demain.content.controller;
 
+import com.demain.common.core.util.Result;
 import com.demain.content.entity.Content;
 import com.demain.content.service.ContentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,9 +26,9 @@ public class ContentController {
 	/**
 	 * 根据内容ID获取内容信息
 	 */
-	@RequestMapping("/getContentInfo")
-	public Content getContentInfo() {
-		return contentService.getById(1);
+	@RequestMapping("/getContentInfo/{id}")
+	public Result<Content> getContentInfo(@PathVariable("id") Long id) {
+		return Result.data(contentService.getById(id));
 	}
 
 }

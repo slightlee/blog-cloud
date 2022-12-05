@@ -42,14 +42,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
-        <!-- swagger -->
-        <dependency>
             <groupId>com.demain</groupId>
-            <artifactId>blog-common-swagger</artifactId>
+            <artifactId>blog-common-core</artifactId>
             <version>${blog-common.version}</version>
         </dependency>
 
