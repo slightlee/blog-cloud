@@ -7,9 +7,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/blog-cloud?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
-    username: root
-    password: root
+    url: jdbc:mysql://${IP}:3306/blog-cloud?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT%2B8
+    username: ${USERNAME}
+    password: ${PASSWORD}
     hikari:
       connection-timeout: 60000
       validation-timeout: 3000
