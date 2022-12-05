@@ -1,6 +1,6 @@
 package com.demain.common.core.util;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,13 +19,13 @@ public class Result<T extends Serializable> implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(Result.class);
 
-    @ApiModelProperty(value = "返回Code")
+    @Schema(description = "返回Code")
     private Integer code;
 
-    @ApiModelProperty(value = "描述信息")
+    @Schema(description = "描述信息")
     private String msg;
 
-    @ApiModelProperty(value = "返回数据")
+    @Schema(description = "返回数据")
     private T data;
 
 

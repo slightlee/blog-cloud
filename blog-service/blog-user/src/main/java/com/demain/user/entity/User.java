@@ -3,12 +3,12 @@ package com.demain.user.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -21,43 +21,43 @@ import lombok.Setter;
 @Getter
 @Setter
 @TableName("blog_user")
-@ApiModel(value = "User对象", description = "用户表")
+@Schema(description = "User对象")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty("ID")
+	@Schema(description = "ID")
 	@TableId(value = "id", type = IdType.ASSIGN_ID)
 	private Long id;
 
-	@ApiModelProperty("用户名")
+	@Schema(description = "用户名")
 	private String userName;
 
-	@ApiModelProperty("密码")
+	@Schema(description = "密码")
 	private String password;
 
-	@ApiModelProperty("昵称")
+	@Schema(description = "昵称")
 	private String nickName;
 
-	@ApiModelProperty("姓名")
+	@Schema(description = "姓名")
 	private String realName;
 
-	@ApiModelProperty("邮箱")
+	@Schema(description = "邮箱")
 	private String email;
 
-	@ApiModelProperty("状态")
+	@Schema(description = "状态")
 	private Byte status;
 
-	@ApiModelProperty("创建人")
+	@Schema(description = "创建人")
 	private Long createUser;
 
-	@ApiModelProperty("创建时间")
+	@Schema(description = "创建时间")
 	private LocalDateTime createTime;
 
-	@ApiModelProperty("更新人")
+	@Schema(description = "更新人")
 	private Long updateUser;
 
-	@ApiModelProperty("更新时间")
+	@Schema(description = "更新时间")
 	private LocalDateTime updateTime;
 
 }
