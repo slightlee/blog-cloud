@@ -37,8 +37,6 @@ public class ContentController {
 
 	private final ContentService contentService;
 
-	private final DiscoveryClient discoveryClient;
-
 	/**
 	 * 根据内容ID获取内容信息
 	 */
