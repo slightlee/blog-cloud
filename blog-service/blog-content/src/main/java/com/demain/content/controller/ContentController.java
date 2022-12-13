@@ -37,6 +37,8 @@ public class ContentController {
 
 	private final ContentService contentService;
 
+	private final RestTemplate restTemplate;
+
 	/**
 	 * 根据内容ID获取内容信息
 	 */
@@ -48,7 +50,6 @@ public class ContentController {
 		// 内容信息
 		Content content = contentService.getById(id);
 		// 用户信息
-		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<User> responseEntity = restTemplate.getForEntity("http://blog-user/user/getUserInfo/{id}", User.class, id);
 		User user = responseEntity.getBody();
 		assert user != null;
