@@ -1,21 +1,21 @@
-package com.demain.user;
+package com.demain.content;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 用户服务
+ * 内容服务
  *
  * @author demain_lee
  * @since 0.0.1
  */
 @SpringBootApplication
-@MapperScan({ "com.demain.user.mapper" })
-public class BlogUserController {
+@MapperScan({ "com.demain.content.mapper" })
+public class ContentApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BlogUserController.class, args);
+		SpringApplication.run(ContentApplication.class, args);
 	}
 
 }
