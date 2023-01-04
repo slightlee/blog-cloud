@@ -11,14 +11,12 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 
 /**
  * <p>
@@ -50,7 +48,8 @@ public class ContentController {
 		// 内容信息
 		Content content = contentService.getById(id);
 		// 用户信息
-		ResponseEntity<User> responseEntity = restTemplate.getForEntity("http://blog-user/user/getUserInfo/{id}", User.class, id);
+		ResponseEntity<User> responseEntity = restTemplate.getForEntity("http://blog-user/user/getUserInfo/{id}",
+				User.class, id);
 		User user = responseEntity.getBody();
 		assert user != null;
 		ContentInfoV contentInfoV = ContentInfoV.builder().content(content).nickName(user.getNickName()).build();

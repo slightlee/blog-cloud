@@ -39,11 +39,9 @@ public class UserController {
 	 */
 	@GetMapping("/getUserInfo/{id}")
 	@Operation(summary = "根据内容ID获取内容信息")
-	@Parameters({
-			@Parameter(name = "id", description = "用户ID")
-	})
+	@Parameters({ @Parameter(name = "id", description = "用户ID") })
 	public User getUserInfo(@PathVariable("id") Long id) {
-		log.info("被请求了:{}",port);
+		log.info("被请求了:{}", port);
 		return userService.getById(id);
 	}
 
