@@ -54,6 +54,13 @@
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
+        <!-- banner -->
+        <dependency>
+            <groupId>com.demain</groupId>
+            <artifactId>blog-common-banner</artifactId>
+            <version>${blog-common.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

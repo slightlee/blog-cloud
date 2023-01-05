@@ -29,6 +29,7 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <springdoc.version>1.6.13</springdoc.version>
         <knife4j.ui.version>3.0.3</knife4j.ui.version>
+        <hutool.version>5.8.11</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -70,6 +71,15 @@
 
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <!--
                 github地址： https://github.com/spring-io/spring-javaformat

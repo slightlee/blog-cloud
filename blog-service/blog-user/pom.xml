@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>blog-user</artifactId>
+    <packaging>jar</packaging>
+    <description>user service</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -47,6 +49,20 @@
                 </includes>
             </resource>
         </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 
     </build>
 
