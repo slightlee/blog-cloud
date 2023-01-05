@@ -42,7 +42,7 @@ public class Content implements Serializable {
 	private Integer sort;
 
 	@Schema(description = "状态")
-	private Byte status;
+	private Integer status;
 
 	@Schema(description = "创建人")
 	private Long createUser;

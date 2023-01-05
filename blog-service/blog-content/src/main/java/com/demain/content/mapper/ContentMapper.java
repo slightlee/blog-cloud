@@ -1,7 +1,7 @@
 package com.demain.content.mapper;
 
 import com.demain.content.entity.Content;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.demain.mybatis.mapper.MyBaseMapper;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author demain_lee
  * @since 2022-12-05
  */
-public interface ContentMapper extends BaseMapper<Content> {
+public interface ContentMapper extends MyBaseMapper<Content> {
 
 }

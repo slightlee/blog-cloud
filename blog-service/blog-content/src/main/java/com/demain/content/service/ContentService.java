@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ContentService extends IService<Content> {
 
+	/**
+	 * 批量插入
+	 * @return boolean
+	 */
+	boolean batchInsertContent();
+
 }

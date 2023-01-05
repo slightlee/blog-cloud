@@ -5,24 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.demain</groupId>
-        <artifactId>blog-cloud</artifactId>
+        <artifactId>blog-common</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>blog-common</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>blog-common-generator</module>
-        <module>blog-common-swagger</module>
-        <module>blog-common-core</module>
-        <module>blog-common-banner</module>
-        <module>blog-common-mybatis</module>
-    </modules>
+    <artifactId>blog-common-mybatis</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+    </dependencies>
 
 </project>

@@ -30,10 +30,12 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+
+        <!-- mybatis增强配置 -->
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>${mybatis-plus.version}</version>
+            <groupId>com.demain</groupId>
+            <artifactId>blog-common-mybatis</artifactId>
+            <version>${blog-common.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
