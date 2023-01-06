@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -55,5 +57,11 @@ public class Content implements Serializable {
 
 	@Schema(description = "更新时间")
 	private LocalDateTime updateTime;
+
+	/**
+	 * 乐观锁
+	 */
+	@Version
+	private Integer version;
 
 }

@@ -1,7 +1,9 @@
 package com.demain.content.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.demain.content.entity.Content;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.demain.mybatis.core.conditions.Query;
 
 /**
  * <p>
@@ -18,5 +20,7 @@ public interface ContentService extends IService<Content> {
 	 * @return boolean
 	 */
 	boolean batchInsertContent();
+
+	IPage<Content> contentList(Query query);
 
 }

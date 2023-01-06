@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @since 0.0.1
  */
 @Data
-public class Result<T extends Serializable> implements Serializable {
+public class Result<T> implements Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(Result.class);
 
@@ -51,7 +51,7 @@ public class Result<T extends Serializable> implements Serializable {
 		this(resultEnum.code, msg, data);
 	}
 
-	public static <T extends Serializable> Result<T> data(T data) {
+	public static <T> Result<T> data(T data) {
 		return new Result<>(ResultEnum.SUCCESS.getCode(), ResultEnum.SUCCESS.getMsg(), data);
 	}
 
@@ -60,7 +60,7 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> success() {
+	public static <T> Result<T> success() {
 		return new Result<>(ResultEnum.SUCCESS);
 	}
 
@@ -70,7 +70,7 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> success(String msg) {
+	public static <T> Result<T> success(String msg) {
 		return new Result<>(ResultEnum.SUCCESS, msg);
 	}
 
@@ -80,7 +80,7 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> success(ResultEnum resultEnum) {
+	public static <T> Result<T> success(ResultEnum resultEnum) {
 		return new Result<>(resultEnum.getCode(), resultEnum.getMsg());
 	}
 
@@ -89,10 +89,10 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> error() {
-		logger.debug("返回错误：code={}, msg={}", ResultEnum.INTERNAL_SERVER_ERROR.getCode(),
-				ResultEnum.INTERNAL_SERVER_ERROR.getMsg());
-		return error(ResultEnum.INTERNAL_SERVER_ERROR.getCode(), ResultEnum.INTERNAL_SERVER_ERROR.getMsg());
+	public static <T> Result<T> error() {
+		logger.debug("返回错误：code={}, msg={}", ResultEnum.FAILED.getCode(),
+				ResultEnum.FAILED.getMsg());
+		return error(ResultEnum.FAILED.getCode(), ResultEnum.FAILED.getMsg());
 	}
 
 	/**
@@ -101,9 +101,9 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> error(String msg) {
-		logger.debug("返回错误：code={}, msg={}", ResultEnum.INTERNAL_SERVER_ERROR.getCode(), msg);
-		return error(ResultEnum.INTERNAL_SERVER_ERROR.getCode(), msg);
+	public static <T> Result<T> error(String msg) {
+		logger.debug("返回错误：code={}, msg={}", ResultEnum.FAILED.getCode(), msg);
+		return error(ResultEnum.FAILED.getCode(), msg);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> error(ResultEnum resultEnum) {
+	public static <T> Result<T> error(ResultEnum resultEnum) {
 		logger.debug("返回错误：code={}, msg={}", resultEnum.getCode(), resultEnum.getMsg());
 		return error(resultEnum.getCode(), resultEnum.getMsg());
 	}
@@ -124,9 +124,19 @@ public class Result<T extends Serializable> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T extends Serializable> Result<T> error(int code, String msg) {
+	public static <T> Result<T> error(int code, String msg) {
 		logger.debug("返回错误：code={}, msg={}", code, msg);
 		return new Result<>(code, msg, null);
+	}
+
+	/**
+	 * 返回Result
+	 * @param flag flag
+	 * @param <T> T 响应数据
+	 * @return Result
+	 */
+	public static <T> Result<T> status(boolean flag) {
+		return flag ? success() : error();
 	}
 
 }

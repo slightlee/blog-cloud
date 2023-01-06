@@ -1,9 +1,11 @@
 package com.demain.content.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.demain.common.core.util.Result;
 import com.demain.content.entity.Content;
 import com.demain.content.service.ContentService;
 import com.demain.content.vo.ContentInfoV;
+import com.demain.mybatis.core.conditions.Query;
 import com.demain.user.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -59,8 +61,28 @@ public class ContentController {
 	@PostMapping("/batchInsertContent")
 	@Operation(summary = "批量插入内容信息")
 	public Result<Boolean> batchInsertContent() {
-		contentService.batchInsertContent();
-		return Result.success();
+		return Result.status(contentService.batchInsertContent());
+	}
+
+	/**
+	 * 内容列表
+	 */
+	@GetMapping("/listContent")
+	@Operation(summary = "内容列表")
+	public Result<IPage<Content>> listContent(Query query) {
+		return Result.data(contentService.contentList(query));
+	}
+
+	@GetMapping("/updateContent")
+	@Operation(summary = "更新内容")
+	public Result<?> updateContent() {
+		Content content = new Content();
+		content.setId(1L);
+		// 乐观锁测试
+		content.setVersion(1);
+		content.setTitle("测试");
+		contentService.updateById(content);
+		return Result.data(contentService.updateById(content));
 	}
 
 }

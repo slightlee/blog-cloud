@@ -1,7 +1,7 @@
 package com.demain.content.mapper;
 
 import com.demain.content.entity.Content;
-import com.demain.mybatis.mapper.MyBaseMapper;
+import com.demain.mybatis.core.mapper.MyBaseMapper;
 
 /**
  * <p>

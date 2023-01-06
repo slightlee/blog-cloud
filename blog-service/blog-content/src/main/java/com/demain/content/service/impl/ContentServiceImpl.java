@@ -1,9 +1,12 @@
 package com.demain.content.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.demain.content.entity.Content;
 import com.demain.content.mapper.ContentMapper;
 import com.demain.content.service.ContentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.demain.mybatis.core.conditions.Condition;
+import com.demain.mybatis.core.conditions.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,4 +47,8 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
 		return contentMapper.insertBatchSomeColumn(contentsList) > 0;
 	}
 
+	@Override
+	public IPage<Content> contentList(Query query) {
+		return contentMapper.selectPage(Condition.getPage(query), null);
+	}
 }
