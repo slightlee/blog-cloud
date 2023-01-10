@@ -90,8 +90,7 @@ public class Result<T> implements Serializable {
 	 * @return Result
 	 */
 	public static <T> Result<T> error() {
-		logger.debug("返回错误：code={}, msg={}", ResultEnum.FAILED.getCode(),
-				ResultEnum.FAILED.getMsg());
+		logger.debug("返回错误：code={}, msg={}", ResultEnum.FAILED.getCode(), ResultEnum.FAILED.getMsg());
 		return error(ResultEnum.FAILED.getCode(), ResultEnum.FAILED.getMsg());
 	}
 

@@ -51,4 +51,5 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
 	public IPage<Content> contentList(Query query) {
 		return contentMapper.selectPage(Condition.getPage(query), null);
 	}
+
 }

@@ -35,7 +35,8 @@ public class MySqlInjector extends DefaultSqlInjector {
 		methodList.add(new LogicDeleteBatchByIds("logicDeleteBatchByIds"));
 
 		// 以下配置 更新时候不会更新name
-		// methodList.add(new AlwaysUpdateSomeColumnById(t->!"name".equals(t.getColumn())));
+		// methodList.add(new
+		// AlwaysUpdateSomeColumnById(t->!"name".equals(t.getColumn())));
 
 		return methodList;
 	}
