@@ -24,6 +24,7 @@ spring:
     nacos:
       discovery:
         server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
 
 mybatis-plus:
   configuration:
