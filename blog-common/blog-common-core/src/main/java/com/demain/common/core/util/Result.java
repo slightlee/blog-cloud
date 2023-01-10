@@ -1,7 +1,6 @@
 package com.demain.common.core.util;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,6 @@ import java.io.Serializable;
  * @author demain_lee
  * @since 0.0.1
  */
-@Data
 public class Result<T> implements Serializable {
 
 	private static final Logger logger = LoggerFactory.getLogger(Result.class);
@@ -136,6 +134,30 @@ public class Result<T> implements Serializable {
 	 */
 	public static <T> Result<T> status(boolean flag) {
 		return flag ? success() : error();
+	}
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public void setData(T data) {
+		this.data = data;
 	}
 
 }

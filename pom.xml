@@ -30,6 +30,8 @@
         <springdoc.version>1.6.13</springdoc.version>
         <knife4j.ui.version>3.0.3</knife4j.ui.version>
         <hutool.version>5.8.11</hutool.version>
+        <swagger.core.version>2.2.8</swagger.core.version>
+        <slf4j.version>2.0.6</slf4j.version>
     </properties>
 
     <dependencyManagement>

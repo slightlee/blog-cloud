@@ -1,11 +1,11 @@
 package com.demain.banner.core;
 
 import cn.hutool.core.thread.ThreadUtil;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,8 +15,9 @@ import java.util.concurrent.TimeUnit;
  * @author demain_lee
  * @since 0.0.1
  */
-@Slf4j
 public class BannerApplicationRunner implements ApplicationRunner {
+
+	private static final Logger logger = LoggerFactory.getLogger(BannerApplicationRunner.class);
 
 	@Value("${spring.application.name}")
 	private String applicationName;
@@ -29,14 +30,14 @@ public class BannerApplicationRunner implements ApplicationRunner {
 
 		ThreadUtil.execute(() -> {
 			ThreadUtil.sleep(1, TimeUnit.SECONDS); // 延迟 1 秒，保证输出到结尾
-			log.info("""
+			logger.info("""
 
 					==========================================================
 					\t {} 服务启动成功 φ(゜▽゜*)♪
 					\t 占用端口: \t{}\s
 					\t 接口文档: \t{}\s
 					==========================================================""", applicationName, port,
-					"http://127.0.0.1:port/doc.html");
+					"http://127.0.0.1:8000/doc.html");
 		});
 	}
 

@@ -1,16 +1,11 @@
 package com.demain.common.core.util;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * 返回结果枚举类
  *
  * @author demain_lee
  * @since 0.0.1
  */
-@Getter
-@AllArgsConstructor
 public enum ResultEnum {
 
 	// 2xx - 成功
@@ -54,5 +49,18 @@ public enum ResultEnum {
 	 * 错误类型描述信息
 	 */
 	public final String msg;
+
+	ResultEnum(int code, String msg) {
+		this.code = code;
+		this.msg = msg;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
 
 }

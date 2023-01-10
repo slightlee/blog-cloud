@@ -26,9 +26,13 @@
         </dependency>
 
         <dependency>
-            <groupId>com.demain</groupId>
-            <artifactId>blog-common-core</artifactId>
-            <version>${blog-common.version}</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
     </dependencies>
