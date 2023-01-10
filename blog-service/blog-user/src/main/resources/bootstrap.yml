@@ -1,0 +1,23 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: blog-user
+
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+      config:
+        server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+        group: DEFAULT_GROUP
+        prefix: blog-cloud
+        file-extension: yaml              # 配置文件类型
+        refresh-enabled: true             # 是否开启自动刷新
+
