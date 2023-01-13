@@ -22,26 +22,25 @@
         <!-- knife4j ui -->
         <!-- https://mvnrepository.com/artifact/com.github.xiaoymin/knife4j-springdoc-ui -->
         <!-- https://doc.xiaominfo.com/docs/quick-start-->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-springdoc-ui</artifactId>
-            <version>${knife4j.ui.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.xiaoymin</groupId>-->
+<!--            <artifactId>knife4j-springdoc-ui</artifactId>-->
+<!--            <version>${knife4j.ui.version}</version>-->
+<!--        </dependency>-->
 
-
-        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+        <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webmvc-core -->
         <!-- https://springdoc.org/ -->
         <!-- https://github.com/springdoc/springdoc-openapi-demos -->
+        <!-- springdoc核心包 -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-webmvc-core</artifactId>
             <version>${springdoc.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.webjars</groupId>
-                    <artifactId>swagger-ui</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
 
     </dependencies>

@@ -1,37 +1,43 @@
-server:
-  port: 8000
-
-spring:
-  application:
-    name: blog-gateway
-
-  cloud:
-    nacos:
-      discovery:
-        server-addr: ${NACOS_SERVER_ADDR}
-        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
-#      config:
+#server:
+#  port: 8000
+#
+#spring:
+#  application:
+#    name: blog-gateway
+#
+#  cloud:
+#    nacos:
+#      discovery:
 #        server-addr: ${NACOS_SERVER_ADDR}
 #        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
-#        name: gateway-router              # 配置的dataId
-#        group: DEFAULT_GROUP
-#        file-extension: yaml              # 配置文件类型
-#        refresh-enabled: true             # 是否开启自动刷新
-    gateway:
-      discovery:
-        locator:
-          enabled: false                   # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
-          lower-case-service-id: true      # 请求路径上的服务名配置为小写
-      routes:
-        - id: blog-user
-          uri: lb://blog-user              # lb指的是从nacos中按照名称获取微服务，并遵循负载均衡策略 ，须引入 spring-cloud-starter-loadbalancer 包
-          predicates:
-            - Path=/blog-user/**
-          filters:
-            - StripPrefix=1                # 过滤路径 /blog-user/user/getUserInfo/1  真实路径是/user/getUserInfo/1 去掉 /blog-user
-        - id: blog-content
-          uri: lb://blog-content
-          predicates:
-            - Path=/blog-content/**
-          filters:
-            - StripPrefix=1
+#    #      config:
+#    #        server-addr: ${NACOS_SERVER_ADDR}
+#    #        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+#    #        #name: blog-cloud-gateway-routes-dev  # 配置的dataId
+#    #        group: DEFAULT_GROUP
+#    #        file-extension: yaml                  # 配置文件类型
+#    #        refresh-enabled: true                 # 是否开启自动刷新
+#    gateway:
+#      discovery:
+#        locator:
+#          enabled: false                   # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
+#          lower-case-service-id: true      # 请求路径上的服务名配置为小写
+#      routes:
+#        - id: blog-user
+#          uri: lb://blog-user              # lb指的是从nacos中按照名称获取微服务，并遵循负载均衡策略 ，须引入 spring-cloud-starter-loadbalancer 包
+#          predicates:
+#            - Path=/blog-user/**
+#          filters:
+#            - StripPrefix=1                # 过滤路径 /blog-user/user/getUserInfo/1  真实路径是/user/getUserInfo/1 去掉 /blog-user
+#        - id: blog-content
+#          uri: lb://blog-content
+#          predicates:
+#            - Path=/blog-content/**
+#          filters:
+#            - StripPrefix=1
+#        - id: openapi
+#          uri: http://localhost:${server.port}
+#          predicates:
+#            - Path=/v3/api-docs/**
+#          filters:
+#            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs

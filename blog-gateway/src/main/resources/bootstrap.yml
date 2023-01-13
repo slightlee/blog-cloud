@@ -1,0 +1,32 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: blog-gateway
+
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+      config:
+        server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+        group: DEFAULT_GROUP
+        #prefix: file-name
+        #如果配置文件扩展名不是properties，则必须指定扩展名（data-id: [file-name].[file-extension]）
+        #file-extension: yaml             # 配置文件类型
+        #extension-configs 可以支持多配置文件，但是需要在同一个命名空间下，可以不同分组。
+        # profile > 默认配置文件 > extension-configs > shared-configs 的优先级
+        # 可参考 https://blog.csdn.net/weixin_42950079/article/details/128246247
+        extension-configs:
+          - data-id: blog-cloud-dev.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: blog-cloud-gateway-routes-dev.yaml
+            group: DEFAULT_GROUP
+            refresh: true

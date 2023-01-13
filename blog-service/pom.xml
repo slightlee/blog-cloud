@@ -76,6 +76,12 @@
             <version>${blog-common.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.demain</groupId>
+            <artifactId>blog-common-swagger</artifactId>
+            <version>${blog-common.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>
