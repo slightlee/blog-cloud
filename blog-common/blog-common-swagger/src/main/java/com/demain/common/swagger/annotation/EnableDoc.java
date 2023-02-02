@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 /**
  * 开启 doc 文档
  * @author demain_lee
- * @since  0.0.1
+ * @since 0.0.1
  */
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)

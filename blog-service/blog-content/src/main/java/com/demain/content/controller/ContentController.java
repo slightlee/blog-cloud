@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -69,7 +70,7 @@ public class ContentController {
 	 */
 	@GetMapping("/listContent")
 	@Operation(summary = "内容列表")
-	public Result<IPage<Content>> listContent(Query query) {
+	public Result<IPage<Content>> listContent(@ParameterObject Query query) {
 		return Result.data(contentService.contentList(query));
 	}
 

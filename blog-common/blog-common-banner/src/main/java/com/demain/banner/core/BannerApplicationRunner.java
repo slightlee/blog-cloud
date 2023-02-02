@@ -35,9 +35,10 @@ public class BannerApplicationRunner implements ApplicationRunner {
 					==========================================================
 					\t {} 服务启动成功 φ(゜▽゜*)♪
 					\t 占用端口: \t{}\s
-					\t 接口文档: \t{}\s
+					\t knife4j接口文档: \t{}\s
+					\t swagger接口文档: \t{}\s
 					==========================================================""", applicationName, port,
-					"http://127.0.0.1:8000/doc.html");
+					"http://127.0.0.1:8000/doc.html", "http://127.0.0.1:8000/webjars/swagger-ui/index.html");
 		});
 	}
 

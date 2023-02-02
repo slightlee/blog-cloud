@@ -29,14 +29,16 @@ public class SpringDocConfiguration {
 	public List<GroupedOpenApi> apis(SwaggerUiConfigParameters swaggerUiConfigParameters,
 			SwaggerDocProperties swaggerProperties) {
 		List<GroupedOpenApi> groups = new ArrayList<>();
-		// for (String value : swaggerProperties.getServices().values()) {
-		// swaggerUiConfigParameters.addGroup(value);
-		// }
-		swaggerUiConfigParameters.addGroup("blog-user", "用户服务");
-		swaggerUiConfigParameters.addGroup("blog-content", "内容服务");
+		Map<String, String> services = swaggerProperties.getServices();
+		for (String key : services.keySet()) {
+			swaggerUiConfigParameters.addGroup(key, services.get(key));
+		}
 		return groups;
 	}
 
+	/**
+	 * 方式二 可配合 blog-cloud-gateway-routes-dev.yaml 文件 springdoc配置使用
+	 */
 	// @Bean
 	// @Lazy(false)
 	// @ConditionalOnProperty(prefix = "swagger", name = "enabled", havingValue = "true")
