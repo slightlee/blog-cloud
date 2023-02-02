@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.demain.banner.config.BannerAutoConfiguration
+com.demain.banner.config.BannerAutoConfiguration,\
+com.demain.banner.core.StartEventListener
