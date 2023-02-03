@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.demain.common.core.config.WebMvcConfig,\
+com.demain.common.core.handler.ResponseResultHandler,\
+com.demain.common.core.handler.PlatformExceptionHandler

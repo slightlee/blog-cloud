@@ -1,5 +1,7 @@
 package com.demain.user.controller;
 
+import com.demain.common.core.annotation.ResponseResult;
+import com.demain.common.core.exception.PlatformException;
 import com.demain.user.entity.User;
 import com.demain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,9 +42,21 @@ public class UserController {
 	@GetMapping("/getUserInfo/{id}")
 	@Operation(summary = "根据内容ID获取内容信息")
 	@Parameters({ @Parameter(name = "id", description = "用户ID") })
+	@ResponseResult
 	public User getUserInfo(@PathVariable("id") Long id) {
 		log.info("被请求了:{}", port);
 		return userService.getById(id);
+	}
+
+	@GetMapping("/testError")
+	@Operation(summary = "测试异常")
+	public void testError() {
+		try {
+			int a = 1 / 0;
+		}
+		catch (Exception e) {
+			throw new PlatformException(e.getMessage());
+		}
 	}
 
 }
