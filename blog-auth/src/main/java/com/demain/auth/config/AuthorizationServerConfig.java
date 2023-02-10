@@ -104,7 +104,7 @@ public class AuthorizationServerConfig {
 				.reuseRefreshTokens(true)
 				.build();
 		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("blog-client").clientSecret("{noop}blog-cloud")
+				.clientId("blog-client").clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
 				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
