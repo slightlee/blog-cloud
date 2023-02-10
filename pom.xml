@@ -32,6 +32,7 @@
         <hutool.version>5.8.11</hutool.version>
         <swagger.core.version>2.2.8</swagger.core.version>
         <slf4j.version>2.0.6</slf4j.version>
+        <security.authorization.version>0.4.0</security.authorization.version>
     </properties>
 
     <dependencyManagement>
