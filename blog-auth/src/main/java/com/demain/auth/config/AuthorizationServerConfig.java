@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -103,19 +102,34 @@ public class AuthorizationServerConfig {
 				.refreshTokenTimeToLive(Duration.ofDays(1))
 				.reuseRefreshTokens(true)
 				.build();
+//		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//				.clientId("blog-client").clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
+//				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+//				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
+//				.redirectUri("http://127.0.0.1:8080/authorized")
+//				.scope(OidcScopes.OPENID)
+//				.scope(OidcScopes.PROFILE)
+//				.scope("message.read")
+//				.scope("message.write")
+//				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+//				.tokenSettings(tokenSettings)
+//				.build();
 		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("blog-client").clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+				.clientId("blog-client")
+//				.clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
+				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
 				.redirectUri("http://127.0.0.1:8080/authorized")
-				.scope(OidcScopes.OPENID)
-				.scope(OidcScopes.PROFILE)
 				.scope("message.read")
-				.scope("message.write")
-				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+				.clientSettings(ClientSettings.builder()
+						// 公共客户端（NONE方式认证）必须开启 PKCE 流程
+						.requireProofKey(true)
+						// 授权码模式需要用户手动授权！false表示默认通过
+						.requireAuthorizationConsent(true)
+						.build())
 				.tokenSettings(tokenSettings)
 				.build();
 		// @formatter:on
