@@ -1,0 +1,31 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: blog-auth
+
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+      config:
+        server-addr: ${NACOS_SERVER_ADDR}
+        namespace: c912c555-64d9-43c7-84ab-4b50818c0ffa
+        group: DEFAULT_GROUP
+        prefix: blog-cloud
+        file-extension: yaml              # 配置文件类型
+        refresh-enabled: true             # 是否开启自动刷新
+
+
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.web: INFO
+#    org.springframework.security: INFO
+#    org.springframework.security.oauth2: INFO
+##    org.springframework.boot.autoconfigure: DEBUG

@@ -5,10 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
@@ -36,21 +32,5 @@ public class DefaultSecurityConfig {
 		// @formatter:on
 		return http.build();
 	}
-
-	/**
-	 * 配置用户信息，以及用户数据来源
-	 */
-	@Bean
-	UserDetailsService userDetailsService() {
-		// @formatter:off
-		UserDetails userDetails = User.builder()
-				.username("user")
-				.password("{noop}123456")
-				.authorities("ROLE_USER")
-				.build();
-		// @formatter:on
-		return new InMemoryUserDetailsManager(userDetails);
-	}
-
 
 }

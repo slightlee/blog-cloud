@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class IndexController {
 
-    /**
-     * 接口测试
-     */
-    @GetMapping("/test")
-    public String index() {
-        return "index";
-    }
+	/**
+	 * 接口测试
+	 */
+	@GetMapping("/test")
+	public String index() {
+		return "index";
+	}
 
 }
