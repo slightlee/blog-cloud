@@ -12,8 +12,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -89,8 +91,8 @@ public class AuthorizationServerConfig {
 	// }
 
 	/**
-	 * RegisteredClientRepository 主要用于管理第三方应用的信息 授权码模式： <a href=
-	 * "http://127.0.0.1:8003/oauth2/authorize?response_type=code&client_id=blog-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/authorized">...</a>
+	 * RegisteredClientRepository 主要用于管理第三方应用的信息 授权码模式：
+	 * {@code http://127.0.0.1:8003/oauth2/authorize?response_type=code&client_id=blog-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/authorized }
 	 * 对应 oauth2_registered_client 表
 	 */
 	@Bean
@@ -102,36 +104,39 @@ public class AuthorizationServerConfig {
 				.refreshTokenTimeToLive(Duration.ofDays(1))
 				.reuseRefreshTokens(true)
 				.build();
-//		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//				.clientId("blog-client").clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
-//				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-//				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-//				.redirectUri("http://127.0.0.1:8080/authorized")
-//				.scope(OidcScopes.OPENID)
-//				.scope(OidcScopes.PROFILE)
-//				.scope("message.read")
-//				.scope("message.write")
-//				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-//				.tokenSettings(tokenSettings)
-//				.build();
 		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("blog-client")
-//				.clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
-				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+				.clientId("blog-client").clientSecret(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("blog-secret"))
+				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
 				.redirectUri("http://127.0.0.1:8080/authorized")
+				.scope(OidcScopes.OPENID)
+				.scope(OidcScopes.PROFILE)
 				.scope("message.read")
-				.clientSettings(ClientSettings.builder()
-						// 公共客户端（NONE方式认证）必须开启 PKCE 流程
-						.requireProofKey(true)
-						// 授权码模式需要用户手动授权！false表示默认通过
-						.requireAuthorizationConsent(true)
-						.build())
+				.scope("message.write")
+				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
 				.tokenSettings(tokenSettings)
 				.build();
+
+//		授权码+PKCE流程测试
+//		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//				.clientId("blog-client")
+////				.clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
+//				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
+//				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//				.redirectUri("http://127.0.0.1:8080/authorized")
+//				.scope("message.read")
+//				.clientSettings(ClientSettings.builder()
+//						// 公共客户端（NONE方式认证）必须开启 PKCE 流程
+//						.requireProofKey(true)
+//						// 授权码模式需要用户手动授权！false表示默认通过
+//						.requireAuthorizationConsent(true)
+//						.build())
+//				.tokenSettings(tokenSettings)
+//				.build();
+
 		// @formatter:on
 
 		return new InMemoryRegisteredClientRepository(registeredClient);
