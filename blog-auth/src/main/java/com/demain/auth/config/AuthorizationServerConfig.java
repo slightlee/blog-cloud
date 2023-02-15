@@ -12,7 +12,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -22,9 +24,11 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2PasswordAuthenticationProviderBuilder;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
+import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2PasswordAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
@@ -44,31 +48,49 @@ import java.util.UUID;
 @Configuration(proxyBeanMethods = false)
 public class AuthorizationServerConfig {
 
-	@Bean
-	@Order(Ordered.HIGHEST_PRECEDENCE)
-	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
-		OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+	private final UserDetailsService userDetailsService;
+
+	private final PasswordEncoder passwordEncoder;
+
+	public AuthorizationServerConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+		this.userDetailsService = userDetailsService;
+		this.passwordEncoder = passwordEncoder;
+	}
+
+	 @Bean
+	 @Order(Ordered.HIGHEST_PRECEDENCE)
+	 public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity
+	 http) throws Exception {
+	 OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+		// @formatter:off
 		http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
 				// Enable OpenID Connect 1.0
-				.oidc(Customizer.withDefaults());
-		// @formatter:off
+				.oidc(Customizer.withDefaults())
+				.tokenEndpoint(oAuth2TokenEndpointConfigurer ->
+						oAuth2TokenEndpointConfigurer
+							.authenticationProvider(new OAuth2PasswordAuthenticationProviderBuilder(http,userDetailsService,passwordEncoder).build())
+							.accessTokenRequestConverter(new OAuth2PasswordAuthenticationConverter())
+				);
 		http
 			.exceptionHandling(exceptions ->
 				exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
 			)
 			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
 		// @formatter:on
-		return http.build();
-	}
+	 return http.build();
+	 }
 
-	// @Bean
-	// @Order(Ordered.HIGHEST_PRECEDENCE)
-	// public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity
-	// http) throws Exception {
-	// OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new
-	// OAuth2AuthorizationServerConfigurer();
-	// RequestMatcher endpointsMatcher =
-	// authorizationServerConfigurer.getEndpointsMatcher();
+
+//	@Bean
+//	@Order(Ordered.HIGHEST_PRECEDENCE)
+//	public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+//		OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
+//		RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
+//		authorizationServerConfigurer.tokenEndpoint(tokenEndpoint -> tokenEndpoint.authenticationProvider(
+//				new OAuth2PasswordAuthenticationProviderBuilder(http, userDetailsService, passwordEncoder).build())
+//				.accessTokenRequestConverters(authenticationConverters -> {
+//					authenticationConverters.add(new OAuth2PasswordAuthenticationConverter());
+//				}));
 //		// @formatter:off
 //		http
 //			.requestMatcher(endpointsMatcher)
@@ -78,17 +100,17 @@ public class AuthorizationServerConfig {
 //			.csrf(csrf ->
 //				csrf.ignoringRequestMatchers(endpointsMatcher)
 //			)
-////			.exceptionHandling(exceptions ->
-////				exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
-////			)
-////			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+//			.exceptionHandling(exceptions ->
+//				exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+//			)
+//			.oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
 //			.apply(authorizationServerConfigurer)
-//			.and()
-//			.formLogin()
+////			.and()
+////			.formLogin()
 //		;
 //		// @formatter:on
-	// return http.build();
-	// }
+//		return http.build();
+//	}
 
 	/**
 	 * RegisteredClientRepository 主要用于管理第三方应用的信息 授权码模式：
@@ -110,6 +132,7 @@ public class AuthorizationServerConfig {
 				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
 				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
 				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+				.authorizationGrantType(AuthorizationGrantType.PASSWORD)
 				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
 				.redirectUri("http://127.0.0.1:8080/authorized")
 				.scope(OidcScopes.OPENID)
