@@ -9,15 +9,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
+ * 数据库实现 用户信息
+ *
  * @author demain_lee
  * @since 0.0.1
  */
 @Service
-public class MyUserDetailsServiceImpl implements UserDetailsService {
+public class Oauth2UserDetailsServiceImpl implements UserDetailsService {
 
 	private final SysUserService userService;
 
-	public MyUserDetailsServiceImpl(SysUserService userService) {
+	public Oauth2UserDetailsServiceImpl(SysUserService userService) {
 		this.userService = userService;
 	}
 

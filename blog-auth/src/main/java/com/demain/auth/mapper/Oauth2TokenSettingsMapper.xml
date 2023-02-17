@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demain.auth.mapper.Oauth2TokenSettingsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.demain.auth.entity.Oauth2TokenSettings">
+        <id column="client_id" property="registeredClientId" />
+        <result column="authorization_code_time_to_live" property="authorizationCodeTimeToLive" />
+        <result column="access_token_time_to_live" property="accessTokenTimeToLive" />
+        <result column="access_token_format" property="accessTokenFormat" />
+        <result column="reuse_refresh_tokens" property="reuseRefreshTokens" />
+        <result column="refresh_token_time_to_live" property="refreshTokenTimeToLive" />
+        <result column="id_token_signature_algorithm" property="idTokenSignatureAlgorithm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        client_id, authorization_code_time_to_live, access_token_time_to_live, access_token_format, reuse_refresh_tokens, refresh_token_time_to_live, id_token_signature_algorithm
+    </sql>
+
+</mapper>

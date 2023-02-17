@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demain.auth.mapper.Oauth2ClientSettingsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.demain.auth.entity.Oauth2ClientSettings">
+        <id column="client_id" property="registeredClientId" />
+        <result column="require_proof_key" property="requireProofKey" />
+        <result column="require_authorization_consent" property="requireAuthorizationConsent" />
+        <result column="jwk_set_url" property="jwkSetUrl" />
+        <result column="token_endpoint_authentication_signing_algorithm" property="tokenEndpointAuthenticationSigningAlgorithm" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        client_id, require_proof_key, require_authorization_consent, jwk_set_url, token_endpoint_authentication_signing_algorithm
+    </sql>
+
+</mapper>

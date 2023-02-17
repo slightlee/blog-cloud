@@ -13,21 +13,12 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2PasswordAuthenticationProviderBuilder;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
-import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.web.authentication.OAuth2PasswordAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -36,7 +27,6 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.time.Duration;
 import java.util.UUID;
 
 /**
@@ -112,58 +102,13 @@ public class AuthorizationServerConfig {
 //		return http.build();
 //	}
 
-	/**
+	/*
 	 * RegisteredClientRepository 主要用于管理第三方应用的信息 授权码模式：
 	 * {@code http://127.0.0.1:8003/oauth2/authorize?response_type=code&client_id=blog-client&scope=message.read&redirect_uri=http://127.0.0.1:8080/authorized }
+	 * {@code http://127.0.0.1:8003/oauth2/authorize?response_type=code&client_id=blog-client-pkce&scope=message.read&redirect_uri=http://127.0.0.1:8080/authorized&code_challenge=VN4QwBM9xoD3M8ENFwW2EU1qg8AfmtpskQZRIPutM_U&code_challenge_method=S256 }
 	 * 对应 oauth2_registered_client 表
 	 */
-	@Bean
-	public RegisteredClientRepository registeredClientRepository() {
-		// @formatter:off
-		// 自定义 token 配置
-		TokenSettings tokenSettings = TokenSettings.builder()
-				.accessTokenTimeToLive(Duration.ofDays(1))
-				.refreshTokenTimeToLive(Duration.ofDays(1))
-				.reuseRefreshTokens(true)
-				.build();
-		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-				.clientId("blog-client").clientSecret(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("blog-secret"))
-				.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-				.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-				.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-				.authorizationGrantType(AuthorizationGrantType.PASSWORD)
-				.redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-				.redirectUri("http://127.0.0.1:8080/authorized")
-				.scope(OidcScopes.OPENID)
-				.scope(OidcScopes.PROFILE)
-				.scope("message.read")
-				.scope("message.write")
-				.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-				.tokenSettings(tokenSettings)
-				.build();
 
-//		授权码+PKCE流程测试
-//		RegisteredClient registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//				.clientId("blog-client")
-////				.clientSecret("$2a$10$WYfhJgvqO/mX0On.rVaQcO72d4gZ64RVQnQWIMWFeROTcwVaZNQXy")
-//				.clientAuthenticationMethod(ClientAuthenticationMethod.NONE)
-//				.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//				.redirectUri("http://127.0.0.1:8080/authorized")
-//				.scope("message.read")
-//				.clientSettings(ClientSettings.builder()
-//						// 公共客户端（NONE方式认证）必须开启 PKCE 流程
-//						.requireProofKey(true)
-//						// 授权码模式需要用户手动授权！false表示默认通过
-//						.requireAuthorizationConsent(true)
-//						.build())
-//				.tokenSettings(tokenSettings)
-//				.build();
-
-		// @formatter:on
-
-		return new InMemoryRegisteredClientRepository(registeredClient);
-	}
 
 	/**
 	 * 用于签署访问令牌的实例
