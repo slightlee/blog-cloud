@@ -1,6 +1,7 @@
 package com.demain.common.core.exception;
 
-import com.demain.common.core.util.ResultEnum;
+import com.demain.i18n.StatusCode;
+import com.demain.i18n.util.I18nMessageUtil;
 
 /**
  * 自定义处理异常
@@ -8,39 +9,35 @@ import com.demain.common.core.util.ResultEnum;
  * @author demain_lee
  * @since 0.0.1
  */
+@SuppressWarnings("unused")
 public class PlatformException extends RuntimeException {
 
-	private int code;
+	private String code;
 
 	private String msg;
 
 	private String errorMsg;
 
 	public PlatformException() {
-		this.code = ResultEnum.INTERNAL_SERVER_ERROR.code;
-		this.msg = ResultEnum.INTERNAL_SERVER_ERROR.msg;
+		this.code = StatusCode.SYSTEM_EXECUTION_ERROR;
+		this.msg = I18nMessageUtil.getMessage(StatusCode.SYSTEM_EXECUTION_ERROR);
 	}
 
 	public PlatformException(String message) {
-		this.code = ResultEnum.INTERNAL_SERVER_ERROR.code;
+		this.code = StatusCode.SYSTEM_EXECUTION_ERROR;
 		this.msg = message;
 	}
 
-	public PlatformException(ResultEnum resultCodeEnum) {
-		this.code = resultCodeEnum.getCode();
-		this.msg = resultCodeEnum.getMsg();
-	}
-
-	public PlatformException(int code, String msg) {
+	public PlatformException(String code, String msg) {
 		this.code = code;
 		this.msg = msg;
 	}
 
-	public int getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(int code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

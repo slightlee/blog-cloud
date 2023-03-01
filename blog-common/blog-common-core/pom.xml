@@ -45,6 +45,14 @@
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.demain</groupId>
+            <artifactId>blog-common-i18n</artifactId>
+            <version>${blog-common.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+
     </dependencies>
 
 </project>
