@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 2023-02-16
  */
 @Service
-public class Oauth2ClientSettingsServiceImpl extends ServiceImpl<Oauth2ClientSettingsMapper, Oauth2ClientSettings> implements Oauth2ClientSettingsService {
+public class Oauth2ClientSettingsServiceImpl extends ServiceImpl<Oauth2ClientSettingsMapper, Oauth2ClientSettings>
+		implements Oauth2ClientSettingsService {
 
 }

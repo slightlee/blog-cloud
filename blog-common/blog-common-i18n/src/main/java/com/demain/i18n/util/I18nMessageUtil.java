@@ -27,8 +27,8 @@ public class I18nMessageUtil {
 		return RESOURCE_BUNDLE_MESSAGE_SOURCE.getMessage(code, new String[0], Locale.CHINA);
 	}
 
-//	public static void main(String[] args) {
-//		System.out.println(getMessage("00000"));
-//	}
+	// public static void main(String[] args) {
+	// System.out.println(getMessage("00000"));
+	// }
 
 }

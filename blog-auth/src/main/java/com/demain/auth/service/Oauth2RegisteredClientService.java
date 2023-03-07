@@ -5,7 +5,7 @@ import com.demain.auth.entity.Oauth2RegisteredClient;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author demain_lee

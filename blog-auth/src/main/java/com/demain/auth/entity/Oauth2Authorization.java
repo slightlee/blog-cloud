@@ -25,60 +25,61 @@ import java.time.Instant;
 @Schema(name = "Oauth2Authorization对象", description = "Oauth2Authorization表")
 public class Oauth2Authorization implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+	@TableId(value = "id", type = IdType.ASSIGN_ID)
+	private String id;
 
-    private String registeredClientId;
+	private String registeredClientId;
 
-    private String principalName;
+	private String principalName;
 
-    private String authorizationGrantType;
+	private String authorizationGrantType;
 
-    private String authorizedScopes;
+	private String authorizedScopes;
 
-    private String attributes;
+	private String attributes;
 
-    private String state;
+	private String state;
 
-    private String authorizationCodeValue;
+	private String authorizationCodeValue;
 
-    /**
-     * eg: 2023-02-16T08:23:04.821522800Z
-     */
-    private Instant authorizationCodeIssuedAt;
+	/**
+	 * eg: 2023-02-16T08:23:04.821522800Z
+	 */
+	private Instant authorizationCodeIssuedAt;
 
-    private Instant authorizationCodeExpiresAt;
+	private Instant authorizationCodeExpiresAt;
 
-    private String authorizationCodeMetadata;
+	private String authorizationCodeMetadata;
 
-    private String accessTokenValue;
+	private String accessTokenValue;
 
-    private Instant accessTokenIssuedAt;
+	private Instant accessTokenIssuedAt;
 
-    private Instant accessTokenExpiresAt;
+	private Instant accessTokenExpiresAt;
 
-    private String accessTokenMetadata;
+	private String accessTokenMetadata;
 
-    private String accessTokenType;
+	private String accessTokenType;
 
-    private String accessTokenScopes;
+	private String accessTokenScopes;
 
-    private String oidcIdTokenValue;
+	private String oidcIdTokenValue;
 
-    private Instant oidcIdTokenIssuedAt;
+	private Instant oidcIdTokenIssuedAt;
 
-    private Instant oidcIdTokenExpiresAt;
+	private Instant oidcIdTokenExpiresAt;
 
-    private String oidcIdTokenMetadata;
+	private String oidcIdTokenMetadata;
 
-    private String refreshTokenValue;
+	private String refreshTokenValue;
 
-    private Instant refreshTokenIssuedAt;
+	private Instant refreshTokenIssuedAt;
 
-    private Instant refreshTokenExpiresAt;
+	private Instant refreshTokenExpiresAt;
 
-    private String refreshTokenMetadata;
+	private String refreshTokenMetadata;
+
 }

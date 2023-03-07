@@ -40,7 +40,8 @@ public class ClientPkceTest {
 	 * @see ClientSecretAuthenticationProvider#authenticate(Authentication) 下 Validate the
 	 * "code_verifier" parameter for the confidential client, if available
 	 * @see org.springframework.security.oauth2.server.authorization.authentication.CodeVerifierAuthenticator#authenticate(OAuth2ClientAuthenticationToken,RegisteredClient)
-	 * @see org.springframework.security.oauth2.server.authorization.authentication.CodeVerifierAuthenticator#codeVerifierValid(String, String, String)
+	 * @see org.springframework.security.oauth2.server.authorization.authentication.CodeVerifierAuthenticator#codeVerifierValid(String,
+	 * String, String)
 	 */
 	private static String calc(String code_verifier, String code_challenge_method) throws Exception {
 		byte[] bytes = code_verifier.getBytes(StandardCharsets.US_ASCII);

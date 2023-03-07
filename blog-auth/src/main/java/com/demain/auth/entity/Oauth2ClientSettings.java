@@ -24,23 +24,22 @@ import java.io.Serializable;
 @Builder
 public class Oauth2ClientSettings implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @Schema(name = "oauth2客户端id")
-    private String registeredClientId;
+	@Schema(name = "oauth2客户端id")
+	private String registeredClientId;
 
-    @Schema(name = "客户端是否需要证明密钥")
-    private Boolean requireProofKey;
+	@Schema(name = "客户端是否需要证明密钥")
+	private Boolean requireProofKey;
 
-    @Schema(name = "客户端是否需要授权确认页面")
-    private Boolean requireAuthorizationConsent;
+	@Schema(name = "客户端是否需要授权确认页面")
+	private Boolean requireAuthorizationConsent;
 
-    @Schema(name = "jws url")
-    private String jwkSetUrl;
+	@Schema(name = "jws url")
+	private String jwkSetUrl;
 
-    @Schema(name = "支持的签名算法")
-    private String tokenEndpointAuthenticationSigningAlgorithm;
-
+	@Schema(name = "支持的签名算法")
+	private String tokenEndpointAuthenticationSigningAlgorithm;
 
 }

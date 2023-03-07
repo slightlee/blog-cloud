@@ -5,7 +5,7 @@ import com.demain.auth.entity.Oauth2RegisteredClient;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author demain_lee

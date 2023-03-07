@@ -8,13 +8,15 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author demain_lee
  * @since 2023-02-16
  */
 @Service
-public class Oauth2AuthorizationConsentServiceImpl extends ServiceImpl<Oauth2AuthorizationConsentMapper, Oauth2AuthorizationConsent> implements Oauth2AuthorizationConsentService {
+public class Oauth2AuthorizationConsentServiceImpl
+		extends ServiceImpl<Oauth2AuthorizationConsentMapper, Oauth2AuthorizationConsent>
+		implements Oauth2AuthorizationConsentService {
 
 }

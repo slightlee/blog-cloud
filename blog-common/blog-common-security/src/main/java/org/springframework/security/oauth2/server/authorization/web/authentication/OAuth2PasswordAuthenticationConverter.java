@@ -25,10 +25,10 @@ import java.util.*;
  * {@link OAuth2PasswordAuthenticationToken} used for authenticating the authorization
  * grant.
  * <p>
+ *
  * @see AuthenticationConverter
  * @see OAuth2PasswordAuthenticationToken
  * @see OAuth2TokenEndpointFilter
- *
  * @author demain_lee
  * @since 0.0.1
  */
@@ -98,6 +98,5 @@ public final class OAuth2PasswordAuthenticationConverter implements Authenticati
 		OAuth2Error error = new OAuth2Error(errorCode, description, errorUri);
 		throw new OAuth2AuthenticationException(error);
 	}
-
 
 }

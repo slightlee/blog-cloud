@@ -22,12 +22,13 @@ import java.io.Serializable;
 @Schema(name = "Oauth2AuthorizationConsent对象", description = "Oauth2AuthorizationConsent表")
 public class Oauth2AuthorizationConsent implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private String registeredClientId;
+	private String registeredClientId;
 
-    private String principalName;
+	private String principalName;
 
-    private String authorities;
+	private String authorities;
+
 }

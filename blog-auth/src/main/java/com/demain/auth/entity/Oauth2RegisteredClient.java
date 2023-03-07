@@ -27,41 +27,38 @@ import java.time.Instant;
 @Builder
 public class Oauth2RegisteredClient implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+	@TableId(value = "id", type = IdType.ASSIGN_ID)
+	private String id;
 
-    private String clientId;
+	private String clientId;
 
-    private Instant clientIdIssuedAt;
+	private Instant clientIdIssuedAt;
 
-    private String clientSecret;
+	private String clientSecret;
 
-    private Instant clientSecretExpiresAt;
+	private Instant clientSecretExpiresAt;
 
-    private String clientName;
+	private String clientName;
 
-    private String clientAuthenticationMethods;
+	private String clientAuthenticationMethods;
 
-    private String authorizationGrantTypes;
+	private String authorizationGrantTypes;
 
-    private String redirectUris;
+	private String redirectUris;
 
-    private String scopes;
+	private String scopes;
 
-    /**
-     * 方案一：单独 oauth2_client_settings 表
-     * 方案二：存放json格式数据
-     * 默认使用方案一
-     */
-    private String clientSettings;
+	/**
+	 * 方案一：单独 oauth2_client_settings 表 方案二：存放json格式数据 默认使用方案一
+	 */
+	private String clientSettings;
 
-    /**
-     * 方案一：单独 oauth2_token_settings 表
-     * 方案二：存放json格式数据
-     * 默认使用方案一
-     */
-    private String tokenSettings;
+	/**
+	 * 方案一：单独 oauth2_token_settings 表 方案二：存放json格式数据 默认使用方案一
+	 */
+	private String tokenSettings;
+
 }

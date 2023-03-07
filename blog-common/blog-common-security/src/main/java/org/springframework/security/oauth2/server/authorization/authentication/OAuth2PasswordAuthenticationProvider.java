@@ -35,11 +35,10 @@ import static org.springframework.security.oauth2.server.authorization.authentic
 /**
  * An {@link AuthenticationProvider} implementation for the OAuth 2.0 Password Grant.
  * <p>
+ *
  * @see OAuth2PasswordAuthenticationToken
  * @see OAuth2AuthorizationService
- * @see OAuth2TokenGenerator
- * 参考 {@link OAuth2AuthorizationCodeAuthenticationProvider}
- *
+ * @see OAuth2TokenGenerator 参考 {@link OAuth2AuthorizationCodeAuthenticationProvider}
  * @author demain_lee
  * @since 0.0.1
  */

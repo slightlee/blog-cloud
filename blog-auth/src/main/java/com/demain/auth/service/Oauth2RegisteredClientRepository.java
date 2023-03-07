@@ -32,8 +32,8 @@ public class Oauth2RegisteredClientRepository implements RegisteredClientReposit
 	private final Oauth2TokenSettingsService oauth2TokenSettingsService;
 
 	public Oauth2RegisteredClientRepository(Oauth2RegisteredClientService oauth2RegisteredClientService,
-											Oauth2ClientSettingsService oauth2ClientSettingsService,
-											Oauth2TokenSettingsService oauth2TokenSettingsService) {
+			Oauth2ClientSettingsService oauth2ClientSettingsService,
+			Oauth2TokenSettingsService oauth2TokenSettingsService) {
 		this.oauth2RegisteredClientService = oauth2RegisteredClientService;
 		this.oauth2ClientSettingsService = oauth2ClientSettingsService;
 		this.oauth2TokenSettingsService = oauth2TokenSettingsService;
@@ -67,11 +67,13 @@ public class Oauth2RegisteredClientRepository implements RegisteredClientReposit
 		clientAuthenticationMethodsList
 				.forEach(s -> clientAuthenticationMethodSet.add(new ClientAuthenticationMethod(s)));
 
-		Oauth2ClientSettings oauth2ClientSettings = oauth2ClientSettingsService.getOne(
-				Wrappers.<Oauth2ClientSettings>lambdaQuery().eq(Oauth2ClientSettings::getRegisteredClientId, oauth2RegisteredClient.getId()));
+		Oauth2ClientSettings oauth2ClientSettings = oauth2ClientSettingsService
+				.getOne(Wrappers.<Oauth2ClientSettings>lambdaQuery().eq(Oauth2ClientSettings::getRegisteredClientId,
+						oauth2RegisteredClient.getId()));
 
-		Oauth2TokenSettings oauth2TokenSettings = oauth2TokenSettingsService.getOne(
-				Wrappers.<Oauth2TokenSettings>lambdaQuery().eq(Oauth2TokenSettings::getRegisteredClientId, oauth2RegisteredClient.getId()));
+		Oauth2TokenSettings oauth2TokenSettings = oauth2TokenSettingsService
+				.getOne(Wrappers.<Oauth2TokenSettings>lambdaQuery().eq(Oauth2TokenSettings::getRegisteredClientId,
+						oauth2RegisteredClient.getId()));
 
 		RegisteredClient registeredClient = RegisteredClient.withId(oauth2RegisteredClient.getId())
 				.clientId(oauth2RegisteredClient.getClientId()).clientSecret(oauth2RegisteredClient.getClientSecret())
@@ -79,8 +81,7 @@ public class Oauth2RegisteredClientRepository implements RegisteredClientReposit
 				.authorizationGrantTypes(a -> a.addAll(authorizationGrantTypeSet))
 				.redirectUris(s -> s.addAll(Arrays.asList(redirectUris.split(","))))
 				.scopes(s -> s.addAll(Arrays.asList(scopes.split(","))))
-				.clientSettings(ClientSettings.builder()
-						.requireProofKey(oauth2ClientSettings.getRequireProofKey())
+				.clientSettings(ClientSettings.builder().requireProofKey(oauth2ClientSettings.getRequireProofKey())
 						.jwkSetUrl(Optional.ofNullable(oauth2ClientSettings.getJwkSetUrl()).orElse(""))
 						.requireAuthorizationConsent(oauth2ClientSettings.getRequireAuthorizationConsent())
 						.tokenEndpointAuthenticationSigningAlgorithm(

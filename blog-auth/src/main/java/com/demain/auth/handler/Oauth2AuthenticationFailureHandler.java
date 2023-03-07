@@ -28,7 +28,6 @@ public class Oauth2AuthenticationFailureHandler implements AuthenticationFailure
 
 	private final MappingJackson2HttpMessageConverter errorHttpResponseConverter = new MappingJackson2HttpMessageConverter();
 
-
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
@@ -44,7 +43,8 @@ public class Oauth2AuthenticationFailureHandler implements AuthenticationFailure
 
 		ServletServerHttpResponse httpResponse = new ServletServerHttpResponse(response);
 		OAuth2AuthenticationException authorizationException = (OAuth2AuthenticationException) exception;
-		this.errorHttpResponseConverter.write(Result.error(authorizationException.getError().getErrorCode(),authorizationException.getError().getDescription()), MediaType.APPLICATION_JSON, httpResponse);
+		this.errorHttpResponseConverter.write(Result.error(authorizationException.getError().getErrorCode(),
+				authorizationException.getError().getDescription()), MediaType.APPLICATION_JSON, httpResponse);
 	}
 
 }

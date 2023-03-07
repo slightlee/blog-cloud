@@ -45,8 +45,6 @@ public class Result<T> implements Serializable {
 		this.data = data;
 	}
 
-
-
 	public static <T> Result<T> data(T data) {
 		return new Result<>(StatusCode.OK, I18nMessageUtil.getMessage(StatusCode.OK), data);
 	}
@@ -69,7 +67,6 @@ public class Result<T> implements Serializable {
 	public static <T> Result<T> success(String msg) {
 		return new Result<>(StatusCode.OK, msg);
 	}
-
 
 	/**
 	 * 返回Result
@@ -97,7 +94,7 @@ public class Result<T> implements Serializable {
 	 * @param <T> T 响应数据
 	 * @return Result
 	 */
-	public static <T> Result<T> error(String code,String msg) {
+	public static <T> Result<T> error(String code, String msg) {
 		logger.debug("返回错误：code={}, msg={}", code, msg);
 		return new Result<>(code, msg);
 	}
