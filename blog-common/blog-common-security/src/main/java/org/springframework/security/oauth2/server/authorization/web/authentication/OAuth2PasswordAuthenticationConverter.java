@@ -1,9 +1,13 @@
 package org.springframework.security.oauth2.server.authorization.web.authentication;
 
+import com.demain.i18n.StatusCode;
+import com.demain.i18n.util.I18nMessageUtil;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2PasswordAuthenticationToken;
@@ -20,12 +24,13 @@ import java.util.*;
  * OAuth 2.0 Password Grant and then converts it to an
  * {@link OAuth2PasswordAuthenticationToken} used for authenticating the authorization
  * grant.
- *
- * @author demain_lee
- * @since 0.0.1
+ * <p>
  * @see AuthenticationConverter
  * @see OAuth2PasswordAuthenticationToken
  * @see OAuth2TokenEndpointFilter
+ *
+ * @author demain_lee
+ * @since 0.0.1
  */
 public final class OAuth2PasswordAuthenticationConverter implements AuthenticationConverter {
 
@@ -47,18 +52,18 @@ public final class OAuth2PasswordAuthenticationConverter implements Authenticati
 		// username (REQUIRED)
 		String username = parameters.getFirst(OAuth2ParameterNames.USERNAME);
 		if (!StringUtils.hasText(username) || parameters.get(OAuth2ParameterNames.USERNAME).size() != 1) {
-			OAuth2EndpointUtils.throwError(
-					OAuth2ErrorCodes.INVALID_REQUEST,
-					OAuth2ParameterNames.USERNAME,
+			throwError(
+					StatusCode.USERNAME_IS_EMPTY,
+					I18nMessageUtil.getMessage(StatusCode.USERNAME_IS_EMPTY),
 					OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
 		}
 
 		// password (REQUIRED)
 		String password = parameters.getFirst(OAuth2ParameterNames.PASSWORD);
 		if (!StringUtils.hasText(password) || parameters.get(OAuth2ParameterNames.PASSWORD).size() != 1) {
-			OAuth2EndpointUtils.throwError(
-					OAuth2ErrorCodes.INVALID_REQUEST,
-					OAuth2ParameterNames.PASSWORD,
+			throwError(
+					StatusCode.PASSWORD_IS_EMPTY,
+					I18nMessageUtil.getMessage(StatusCode.PASSWORD_IS_EMPTY),
 					OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
 		}
 
@@ -66,7 +71,7 @@ public final class OAuth2PasswordAuthenticationConverter implements Authenticati
 		Set<String> scopes = null;
 		String scope = parameters.getFirst(OAuth2ParameterNames.SCOPE);
 		if (StringUtils.hasText(scope) && parameters.get(OAuth2ParameterNames.SCOPE).size() != 1) {
-			OAuth2EndpointUtils.throwError(
+			throwError(
 					OAuth2ErrorCodes.INVALID_REQUEST,
 					OAuth2ParameterNames.SCOPE,
 					OAuth2EndpointUtils.ACCESS_TOKEN_REQUEST_ERROR_URI);
@@ -88,5 +93,11 @@ public final class OAuth2PasswordAuthenticationConverter implements Authenticati
 
 		return new OAuth2PasswordAuthenticationToken(username, password, clientPrincipal, scopes, additionalParameters);
 	}
+
+	public void throwError(String errorCode, String description, String errorUri) {
+		OAuth2Error error = new OAuth2Error(errorCode, description, errorUri);
+		throw new OAuth2AuthenticationException(error);
+	}
+
 
 }

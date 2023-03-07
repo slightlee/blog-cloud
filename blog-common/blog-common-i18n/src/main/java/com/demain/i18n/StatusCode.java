@@ -35,6 +35,16 @@ public interface StatusCode {
 	String LIMITED_REGISTRATION_COUNTRY_OR_REGION = "A0102";
 
 	/**
+	 * 用户名为空
+	 */
+	String USERNAME_IS_EMPTY = "A0105";
+
+	/**
+	 * 密码为空
+	 */
+	String PASSWORD_IS_EMPTY = "A0106";
+
+	/**
 	 * 用户名校验失败
 	 */
 	String USERNAME_VERIFICATION_FAILED = "A0110";
